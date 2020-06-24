@@ -1,9 +1,10 @@
 package com.tencent.ui.textui;
 
-import javax.imageio.ImageIO;
+import com.tencent.ui.textui.screens.FightScreen;
+import com.tencent.ui.textui.screens.LandingScreen;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 
 public class SimpleGameFrame extends JFrame {
 
@@ -14,7 +15,8 @@ public class SimpleGameFrame extends JFrame {
     private static final int SCALE = 5;
     private static final String NAME = "Glory";
 
-    private GamePanel mainPanel;
+    private LandingScreen landingScreen;
+    private FightScreen fightScreen;
 
     public SimpleGameFrame() {
         super(NAME);
@@ -25,9 +27,25 @@ public class SimpleGameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        mainPanel = new GamePanel();
-        add(mainPanel, BorderLayout.CENTER);
-        mainPanel.init();
+        fightScreen = new FightScreen();
+
+        landingScreen = new LandingScreen();
+        add(landingScreen, BorderLayout.CENTER);
+
+        JButton playButton = new JButton("Play");
+        playButton.setPreferredSize(new Dimension(240,60));
+        playButton.setBackground(Color.RED);
+        playButton.setForeground(Color.WHITE);
+        playButton.setVisible(true);
+        playButton.addActionListener(actionEvent -> {
+            thisPanel().remove(landingScreen);
+            thisPanel().add(fightScreen);
+            thisPanel().revalidate();
+            thisPanel().repaint();
+        });
+
+        landingScreen.add(playButton);
+
         pack();
         setResizable(false);
         setLocationRelativeTo(null);
@@ -38,7 +56,11 @@ public class SimpleGameFrame extends JFrame {
         SimpleGameFrame frame = new SimpleGameFrame();
     }
 
-    public GamePanel getMainPanel() {
-        return mainPanel;
+    public LandingScreen getLandingScreen() {
+        return landingScreen;
+    }
+
+    private JFrame thisPanel() {
+        return this;
     }
 }
