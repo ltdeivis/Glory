@@ -1,8 +1,10 @@
 package com.tencent.mobs;
 
 import com.tencent.items.specialeffects.DarkAnnihilation;
+import com.tencent.items.specialeffects.MithrilArmour;
 import com.tencent.skills.BasicAttack;
 import com.tencent.skills.Fireblast;
+import com.tencent.skills.Iceblast;
 import com.tencent.skills.Skill;
 
 import java.awt.desktop.SystemSleepEvent;
@@ -35,8 +37,10 @@ public class PlayerCharacter extends Mob {
 
         addSkill(new Fireblast());
         addSkill(new BasicAttack());
+        addSkill(new Iceblast());
 
         equipItem(new DarkAnnihilation(this));
+        equipItem(new MithrilArmour(this));
     }
 
     @Override
