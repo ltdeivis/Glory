@@ -6,8 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HealthBar extends JPanel {
-    private int maxHealth = 10;
-    private int currentHealth = 5;
+    private String style = "Seperated";
+    private int maxHealth = 100;
+    private int currentHealth = 100;
 
     public HealthBar() {
         super();
@@ -22,21 +23,41 @@ public class HealthBar extends JPanel {
         g2d.setStroke(new BasicStroke(2));
         g2d.setColor(Color.BLACK);
 
-        int hpSize = getWidth() / maxHealth;
-        int cX = 0;
-        int cY = 0;
-        for(int i = 0; i < maxHealth; i++) {
-            g2d.drawRect(cX, cY, hpSize, getHeight());
-            cX += hpSize;
-        }
+        if(style.equals("Seperated")) {
+            int hpSize = getWidth() / 10;
+            int cX = 0;
+            int cY = 0;
+            for(int i = 0; i < maxHealth; i++) {
+                g2d.drawRect(cX, cY, hpSize, getHeight());
+                cX += hpSize;
+            }
 
-        g2d.setStroke(new BasicStroke(1));
-        g2d.setColor(Color.GREEN);
-        cX = 1;
-        cY = 1;
-        for(int i = 0; i < currentHealth; i++) {
-            g2d.fillRect(cX, cY, hpSize - 1, getHeight() - 1);
-            cX += hpSize;
+            g2d.setStroke(new BasicStroke(1));
+            g2d.setColor(Color.GREEN);
+            cX = 1;
+            cY = 1;
+            int hpToDraw = (int) (((float)currentHealth / (float)maxHealth) * 10);
+            for(int i = 0; i < hpToDraw; i++) {
+                g2d.fillRect(cX, cY, hpSize - 1, getHeight() - 2);
+                cX += hpSize;
+            }
+        } else if(style.equals("Full")) {
+            g2d.drawRect(0,0,getWidth(),getHeight());
+
+            g2d.setStroke(new BasicStroke(1));
+            float hpSize = (float)getWidth() / 100;
+            float percentHp = ((float)currentHealth / (float)maxHealth) * 100;
+            if(percentHp >= 65) {
+                g2d.setColor(Color.GREEN);
+            } else if(percentHp >= 30) {
+                g2d.setColor(Color.ORANGE);
+            }
+            else {
+                g2d.setColor(Color.RED);
+            }
+            int hpWidth = Math.round(hpSize * percentHp);
+            g2d.fillRect(1,1,hpWidth, getHeight() - 2);
+
         }
     }
 
@@ -44,8 +65,13 @@ public class HealthBar extends JPanel {
         this.currentHealth = currentHealth;
     }
 
+    public void setCurrentStyle(String style) {
+        this.style = style;
+    }
+
     public static void main(String[] args) {
         JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setPreferredSize(new Dimension(400,400));
         frame.setVisible(true);
         frame.setLayout(new FlowLayout());
@@ -58,6 +84,16 @@ public class HealthBar extends JPanel {
             hpBar.repaint();
         });
         frame.add(btn);
+        JButton changeStyle = new JButton("Change Style");
+        changeStyle.addActionListener(e -> {
+            if(hpBar.style.equals("Seperated")) {
+                hpBar.setCurrentStyle("Full");
+            } else {
+                hpBar.setCurrentStyle("Seperated");
+            }
+            hpBar.repaint();
+        });
+        frame.add(changeStyle);
         frame.pack();
     }
 }
