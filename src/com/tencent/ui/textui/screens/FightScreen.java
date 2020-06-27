@@ -1,6 +1,7 @@
 package com.tencent.ui.textui.screens;
 
 import com.tencent.ui.textui.panels.HealthPanel;
+import com.tencent.ui.textui.panels.OutputPanel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -11,7 +12,7 @@ public class FightScreen extends JPanel {
 
     private BufferedImage backgroundImage;
 
-    private JPanel outputPanel = new JPanel();
+    private OutputPanel outputPanel;
     private JPanel optionsPanel = new JPanel();
     private HealthPanel charInfoPanel;
     private HealthPanel enemyInfoPanel;
@@ -42,8 +43,8 @@ public class FightScreen extends JPanel {
         enemyInfoPanel.setPreferredSize(new Dimension(200,35));
         enemyInfoPanel.setVisible(true);
 
+        outputPanel = new OutputPanel();
         outputPanel.setPreferredSize(new Dimension(500,200));
-        outputPanel.setBackground(Color.GREEN);
         outputPanel.setVisible(true);
 
         optionsPanel.setPreferredSize(new Dimension(200,200));
