@@ -23,7 +23,6 @@ public class Iceblast extends Skill {
 
     @Override
     public void doAttack(Mob receiver, Mob attacker) {
-        attacker.
         int rawDamage = dmg;
 
         rawDamage += attacker.getIntelligence() * 1.5f;
