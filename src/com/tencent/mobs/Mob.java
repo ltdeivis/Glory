@@ -55,14 +55,16 @@ public class Mob {
         listeners.add(listener);
     }
 
-    public void takeDamage(int damage, Mob attacker) {
+    public void takeDamage(int damage, Mob attacker, boolean trueDamage) {
         attacker.activateEffects(ItemObject.combatPhase.PRE_ATT, this);
         activateEffects(ItemObject.combatPhase.PRE_DEF, attacker);
 
         int finalDmg = damage;
-        finalDmg -= end;
-        finalDmg -= dex / 3;
-        finalDmg = getFinalDamage(attacker, finalDmg);
+        if(!trueDamage) {
+            finalDmg -= end;
+            finalDmg -= dex / 3;
+            finalDmg = getFinalDamage(attacker, finalDmg);
+        }
         finalDmg = Math.max(finalDmg, 1);
         lastDamageTaken = finalDmg;
 

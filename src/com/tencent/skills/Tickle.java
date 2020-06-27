@@ -29,7 +29,7 @@ public class Tickle extends Skill {
 
         System.out.println("Tickle Used!");
 
-        receiver.takeDamage(rawDamage, attacker);
+        receiver.takeDamage(rawDamage, attacker, false);
     }
 
     @Override

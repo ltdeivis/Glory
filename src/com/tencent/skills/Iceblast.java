@@ -31,7 +31,7 @@ public class Iceblast extends Skill {
 
         System.out.println(attacker.getName() + " used Iceblast!");
 
-        receiver.takeDamage(rawDamage, attacker);
+        receiver.takeDamage(rawDamage, attacker, false);
     }
 
     @Override

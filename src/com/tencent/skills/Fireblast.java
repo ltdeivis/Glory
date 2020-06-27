@@ -31,7 +31,7 @@ public class Fireblast extends Skill {
 
         System.out.println("Fireblast Used!");
 
-        receiver.takeDamage(rawDamage, attacker);
+        receiver.takeDamage(rawDamage, attacker, false);
     }
 
     @Override

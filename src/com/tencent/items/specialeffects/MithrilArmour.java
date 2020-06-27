@@ -67,9 +67,9 @@ public class MithrilArmour extends ItemObject implements ItemEffect, Weapon {
     @Override
     public void afterDefence(Mob m) {
         System.out.println(owner.getName() + "'s, Mithril armour thorns activated!");
-        float returnDamage = owner.getLastDamageTaken() * 0.5f;
+        float returnDamage = owner.getLastDamageTaken() * 0.2f;
         int finalDmg = Math.max(Math.round(returnDamage) , 1);
-        m.takeDamage(finalDmg, owner);
+        m.takeDamage(finalDmg, owner, true);
     }
 
     @Override

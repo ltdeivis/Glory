@@ -30,7 +30,7 @@ public class BasicAttack extends Skill {
         rawDamage += attacker.getStr() * 2;
         rawDamage += attacker.getDex() / 4;
 
-        receiver.takeDamage(getItemScaling(attacker,rawDamage), attacker);
+        receiver.takeDamage(getItemScaling(attacker,rawDamage), attacker, false);
     }
 
     @Override
