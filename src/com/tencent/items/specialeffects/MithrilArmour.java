@@ -66,7 +66,8 @@ public class MithrilArmour extends ItemObject implements ItemEffect, Weapon {
 
     @Override
     public void afterDefence(Mob m) {
-
+        float returnDamage = owner.getLastDamageTaken() * 0.2f;
+        m.takeDamage((int) returnDamage, owner);
     }
 
     @Override

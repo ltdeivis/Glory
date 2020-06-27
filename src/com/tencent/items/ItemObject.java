@@ -36,23 +36,40 @@ public class ItemObject {
     public static enum combatPhase { PRE_ATT, AFTER_ATT, PRE_DEF, AFTER_DEF };
     protected Mob owner;
 
+    //EFFECT CONTROL
+    private boolean preAtkUsed;
+    private boolean afterAtkUsed;
+    private boolean preDefUsed;
+    private boolean afterDefUsed;
+
     public ItemObject(Mob m) {
         this.owner = m;
     }
 
     public void activateEffect(combatPhase phase, Mob m) {
-        if(phase == combatPhase.PRE_ATT) {
+        if(phase == combatPhase.PRE_ATT && !preAtkUsed) {
             effect.preAttack(m);
-        } else if(phase == combatPhase.AFTER_ATT) {
+            preAtkUsed = true;
+        } else if(phase == combatPhase.AFTER_ATT && !afterAtkUsed) {
             effect.afterAttack(m);
-        } else if(phase == combatPhase.PRE_DEF) {
+            afterAtkUsed = true;
+        } else if(phase == combatPhase.PRE_DEF && !preDefUsed) {
             effect.preDefence(m);
-        } else if(phase == combatPhase.AFTER_DEF) {
+            preDefUsed = true;
+        } else if(phase == combatPhase.AFTER_DEF && !afterDefUsed) {
             effect.afterDefence(m);
+            afterDefUsed = true;
         }
     }
 
     //GETTERS & SETTERS
+    public void refreshEffects(){
+        preAtkUsed = false;
+        afterAtkUsed = false;
+        preDefUsed = false;
+        afterDefUsed = false;
+    }
+
     public int getCrit() {
         return crit;
     }

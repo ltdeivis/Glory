@@ -35,6 +35,7 @@ public class FightScene {
                     }
                 }
 
+                player.refreshItemEffects();
                 adjustEnemies();
 
                 playerTurn = false;
@@ -43,6 +44,9 @@ public class FightScene {
                 for(Mob m : enemies) {
                     Skill mAttack = m.chooseSkill();
                     mAttack.doAttack(player, m);
+                }
+                for(Mob m : enemies){
+                    m.refreshItemEffects();
                 }
                 playerTurn = true;
             }

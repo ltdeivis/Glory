@@ -23,12 +23,12 @@ public class Iceblast extends Skill {
 
     @Override
     public void doAttack(Mob receiver, Mob attacker) {
+        attacker.
         int rawDamage = dmg;
 
         rawDamage += attacker.getIntelligence() * 1.5f;
         rawDamage += attacker.getMp() / 50;
         rawDamage = getItemScaling(attacker, rawDamage);
-        //TODO: Add something like a frost effect based on chance (I don't know how to do it)
 
         System.out.println(attacker.getName() + " used Iceblast!");
 

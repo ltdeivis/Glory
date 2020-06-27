@@ -39,6 +39,8 @@ public class Mob {
     //MOB LISTENERS
     protected List<CombatListener> listeners = new ArrayList<>();
 
+    private int lastDamageTaken;
+
     public Mob(String name) {
         this.name = name;
     }
@@ -52,13 +54,18 @@ public class Mob {
     }
 
     public void takeDamage(int damage, Mob attacker) {
+        attacker.activateEffects(ItemObject.combatPhase.PRE_ATT, this);
+        activateEffects(ItemObject.combatPhase.PRE_DEF, attacker);
+
         int finalDmg = damage;
         finalDmg -= end;
         finalDmg -= dex / 3;
         finalDmg = Math.max(finalDmg, 1);
         finalDmg = getFinalDamage(attacker, finalDmg);
+        lastDamageTaken = finalDmg;
 
-
+        attacker.activateEffects(ItemObject.combatPhase.AFTER_ATT, this);
+        activateEffects(ItemObject.combatPhase.AFTER_DEF, attacker);
 
         System.out.println(name + " takes -" + String.valueOf(finalDmg) + " damage.");
 
@@ -81,6 +88,18 @@ public class Mob {
         }
 
         return finalDmg;
+    }
+
+    public void refreshItemEffects(){
+        for (ItemObject item : equipedItems){
+            item.refreshEffects();
+        }
+    }
+
+    private void activateEffects(ItemObject.combatPhase phase, Mob m){
+        for (ItemObject item : equipedItems){
+            item.activateEffect(phase, m);
+        }
     }
 
     private void adjustStats(ItemObject oldItem, ItemObject newItem) {
@@ -280,5 +299,9 @@ public class Mob {
 
     public void setCdr_reduction(int cdr_reduction) {
         this.cdr_reduction = cdr_reduction;
+    }
+
+    public int getLastDamageTaken() {
+        return lastDamageTaken;
     }
 }
