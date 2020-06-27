@@ -47,6 +47,7 @@ public class BasicAttack extends Skill {
 
         if(randomizer.nextInt(100) < user.getCritChance()) {
             finalDmg *= 2;
+            System.out.println("Basic Attack Critical Strikes!");
         }
 
         return finalDmg;
