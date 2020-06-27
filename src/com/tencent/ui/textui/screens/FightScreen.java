@@ -79,3 +79,5 @@ public class FightScreen extends JPanel {
         layout.linkSize(charInfoPanel, enemyInfoPanel);
     }
 }
+
+//TODO : Rework hardcoded visual values (gaps...) to percentages and dynamic numbers
