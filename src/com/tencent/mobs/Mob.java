@@ -40,6 +40,7 @@ public class Mob {
     protected List<CombatListener> listeners = new ArrayList<>();
 
     private int lastDamageTaken;
+    private int lastDamageDone;
 
     public Mob(String name) {
         this.name = name;
@@ -303,5 +304,9 @@ public class Mob {
 
     public int getLastDamageTaken() {
         return lastDamageTaken;
+    }
+
+    public int getLastDamageDone() {
+        return lastDamageDone;
     }
 }

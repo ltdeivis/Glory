@@ -51,7 +51,12 @@ public class DarkAnnihilation extends ItemObject implements ItemEffect, Weapon {
 
     @Override
     public void afterAttack(Mob m) {
-
+        int damageCount = owner.getLastDamageDone();
+        if(damageCount > 20){
+            System.out.println("The weapon grows in power.");
+            setStr(str + 5);
+            System.out.println(str);
+        }
     }
 
     @Override
