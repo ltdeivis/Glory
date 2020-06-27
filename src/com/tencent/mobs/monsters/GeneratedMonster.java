@@ -25,7 +25,7 @@ public class GeneratedMonster extends Mob {
         Random rng = new Random();
 
         setName(firstNamePool.get(rng.nextInt(firstNamePool.size())) + " " + surNamePool.get(rng.nextInt(surNamePool.size())));
-        setAtt(rng.nextInt(15));
+        setAtt(rng.nextInt(55));
         setAtt_speed(rng.nextInt(10));
         setCast_speed(rng.nextInt(10));
         setCdr_reduction(rng.nextInt(35));

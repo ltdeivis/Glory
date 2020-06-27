@@ -70,6 +70,10 @@ public class ItemObject {
         afterDefUsed = false;
     }
 
+    public void resetEffect() {
+        effect.resetEffects();
+    }
+
     public int getCrit() {
         return crit;
     }

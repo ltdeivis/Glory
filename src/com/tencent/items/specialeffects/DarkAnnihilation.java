@@ -11,6 +11,13 @@ public class DarkAnnihilation extends ItemObject implements ItemEffect, Weapon {
     private int minHit = 10;
     private int maxHit = 19;
 
+    //EFFECT VARS
+    private int strIncrease = 0;
+    private int totalStrIncrease = 0;
+    private int turnToTransform = 5;
+    private int currentTurn = 0;
+    private boolean transformed = false;
+
     public DarkAnnihilation(Mob owner) {
         super(owner);
         initialize();
@@ -46,16 +53,22 @@ public class DarkAnnihilation extends ItemObject implements ItemEffect, Weapon {
 
     @Override
     public void preAttack(Mob m) {
-
+        currentTurn++;
+        if(currentTurn >= turnToTransform) {
+            transformed = true;
+            System.out.println("Power surges through Dark Anhiliation causing it to transform!");
+            //TODO : Transform
+        }
     }
 
     @Override
     public void afterAttack(Mob m) {
-        int damageCount = m.getLastDamageTaken();
-        if(damageCount > 20){
-            System.out.println("The weapon grows in power.");
-            str ++;
-            System.out.println(att);
+        if(!transformed) {
+            System.out.println("Dark Annihilation grows in power...");
+            strIncrease++;
+            owner.setStr(owner.getStr() + strIncrease);
+            totalStrIncrease += strIncrease;
+            System.out.println("Current strengh of " + owner.getName() + " : " + owner.getStr()); //TODO : Remove
         }
     }
 
@@ -72,6 +85,13 @@ public class DarkAnnihilation extends ItemObject implements ItemEffect, Weapon {
     @Override
     public void enchance(int enchanceLvl) {
 
+    }
+
+    @Override
+    public void resetEffects() {
+        owner.setStr(owner.getStr() - totalStrIncrease);
+        currentTurn = 1;
+        transformed = false;
     }
 
     @Override

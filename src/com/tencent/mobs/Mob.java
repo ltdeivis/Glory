@@ -5,6 +5,7 @@ import com.tencent.items.Weapon;
 import com.tencent.skills.Skill;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Mob {
@@ -61,18 +62,18 @@ public class Mob {
         int finalDmg = damage;
         finalDmg -= end;
         finalDmg -= dex / 3;
-        finalDmg = Math.max(finalDmg, 1);
         finalDmg = getFinalDamage(attacker, finalDmg);
+        finalDmg = Math.max(finalDmg, 1);
         lastDamageTaken = finalDmg;
-
-        attacker.activateEffects(ItemObject.combatPhase.AFTER_ATT, this);
-        activateEffects(ItemObject.combatPhase.AFTER_DEF, attacker);
 
         System.out.println(name + " takes -" + String.valueOf(finalDmg) + " damage.");
 
         hp -= finalDmg;
 
         System.out.println(name + " has " + hp + " remaining HP");
+
+        attacker.activateEffects(ItemObject.combatPhase.AFTER_ATT, this);
+        activateEffects(ItemObject.combatPhase.AFTER_DEF, attacker);
 
         if(hp < 1) {
             setAlive(false);
@@ -94,6 +95,12 @@ public class Mob {
     public void refreshItemEffects(){
         for (ItemObject item : equipedItems){
             item.refreshEffects();
+        }
+    }
+
+    public void resetItemEffects() {
+        for(ItemObject item : equipedItems) {
+            item.resetEffect();
         }
     }
 

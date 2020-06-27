@@ -23,6 +23,8 @@ public class FightScene {
 
         while (!battleOver) {
             if(playerTurn) {
+                player.refreshItemEffects();
+
                 System.out.println("Player Turn...");
                 Skill attack = player.chooseSkill();
                 int target = chooseTarget();
@@ -35,21 +37,23 @@ public class FightScene {
                     }
                 }
 
-                player.refreshItemEffects();
                 adjustEnemies();
 
                 playerTurn = false;
             } else {
+                for(Mob m : enemies){
+                    m.refreshItemEffects();
+                }
+
                 System.out.println("Enemy Turn...");
                 for(Mob m : enemies) {
                     Skill mAttack = m.chooseSkill();
                     mAttack.doAttack(player, m);
                 }
-                for(Mob m : enemies){
-                    m.refreshItemEffects();
-                }
+
                 playerTurn = true;
             }
+
             System.out.println("---------------------------------------");
             System.out.println("");
             if(!player.isAlive()) {
@@ -58,6 +62,7 @@ public class FightScene {
             }
             if(enemies.size() == 0) {
                 System.out.println("All enemies defeated!");
+                player.resetItemEffects();
                 battleOver = true;
             }
         }
