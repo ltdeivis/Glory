@@ -34,5 +34,7 @@ public class GameSystem {
 
         FightScene scene = new FightScene(player, monsters);
         scene.start();
+
+        //zzzz
     }
 }
